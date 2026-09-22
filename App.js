@@ -1,17 +1,20 @@
 import { StyleSheet, View, Text, Image, FlatList } from 'react-native';
 
+
 const productos = [
   { id: '1', nombre: 'Pelota', descripcion: 'Edición Hincha - River Plate', precio: '$45.999',
     imagen: 'https://acdn-us.mitiendanube.com/stores/001/219/670/products/dfpvdl302wr-5-pelota-de-futbol-mundial-2-0-river-_licencia-clubes-n5-1690e79735855f584417302151735323-1024-1024.webp' },
   { id: '2', nombre: 'Botines', descripcion: 'Legend 10', precio: '$114.199',
     imagen: 'https://imgs.search.brave.com/Ac_Tr87sPhhBfrGpLPOVIX3nOBR-MiusBxpngpuYdTg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/ZGlnaXRhbHNwb3J0/LmNvbS5hci9maWxl/cy9wcm9kdWN0cy82/OTk4MDU5MmQ5ZWUy/LTY4NjUyMi0yODB4/MjgwLmpwZw' },
-  { id: '3', nombre: 'Mochila Adidas', descripcion: 'Mochila impermeable para actividades al aire libre', precio: '$35.00',
+  { id: '3', nombre: 'Mochila Adidas', descripcion: 'Mochila impermeable para actividades al aire libre', precio: '$35.000',
     imagen: 'https://www.dexter.com.ar/on/demandware.static/-/Sites-365-dabra-catalog/default/dw926ba6ce/products/ADHT4746/ADHT4746-1.JPG' },
-  { id: '4', nombre: 'Reloj Inteligente', descripcion: 'Reloj inteligente con funciones de salud y fitness', precio: '$80.00',
+  { id: '4', nombre: 'Gorra Adidas', descripcion: 'Gorra deportiva versión negra', precio: '$15.000',
     imagen: 'https://acdn-us.mitiendanube.com/stores/951/243/products/gorra-adidas-e8a33aac3a68a16d9017353195060724-1024-1024.webp' },
 ];
 
+
 export default function App() {
+
 
   const renderProducto = ({ item }) => (
     <View style={styles.tarjeta}>
@@ -22,6 +25,7 @@ export default function App() {
     </View>
   );
 
+
   return (
     <View style={styles.box}>
       <Text style={styles.tituloPantalla}>Bienvenido a nuestra tienda</Text>
@@ -31,7 +35,9 @@ export default function App() {
         resizeMode="contain"
       />
 
+
       <Text style={styles.textoH1}>Productos</Text>
+
 
       <FlatList
         data={productos}
@@ -44,6 +50,7 @@ export default function App() {
   );
 }
 
+
 const styles = StyleSheet.create({
   //------Cuerpo completo---------
   box: { flex: 1, padding: 16, backgroundColor: '#E8F1FA' },
@@ -51,12 +58,14 @@ const styles = StyleSheet.create({
   fotoPortada: { width: '100%', height: 160, marginTop: 12, marginBottom: 20, borderRadius: 12 },
   textoH1: { fontSize: 17, marginBottom: 20, fontWeight: 'bold', fontFamily: 'Arial', color: '#0F3D6E' },
 
+
   //------Contenedor de la lista---------
   pantallaContenido: {
     alignItems: 'center',
     gap: 16,
     paddingBottom: 24,
   },
+
 
   //------Tarjeta---------
   tarjeta: {
