@@ -4,10 +4,10 @@ import { cargarFavoritos, guardarFavoritos } from '../utils/storage';
 const FavoritesContext = createContext(null);
 
 export function FavoritesProvider({ children }) {
-  const [favoritos, setFavoritos] = useState([]); // array de ids
+  const [favoritos, setFavoritos] = useState([]); // array de ids, EN ORDEN
   const [cargandoFavoritos, setCargandoFavoritos] = useState(true);
 
-  // Carga inicial: se ejecuta UNA sola vez al montar el Provider
+  // Carga inicial: una sola vez al montar
   useEffect(() => {
     async function cargar() {
       const data = await cargarFavoritos();
@@ -17,7 +17,7 @@ export function FavoritesProvider({ children }) {
     cargar();
   }, []);
 
-  // Sincroniza con el storage, pero SOLO después de que terminó la carga inicial
+  // Persistencia: solo cuando la carga inicial ya terminó
   useEffect(() => {
     if (!cargandoFavoritos) {
       guardarFavoritos(favoritos);
@@ -36,9 +36,26 @@ export function FavoritesProvider({ children }) {
     return favoritos.includes(id);
   }
 
+  // Eliminación definitiva por id (la usa el swipe)
+  function eliminarFavorito(id) {
+    setFavoritos((prev) => prev.filter((favId) => favId !== id));
+  }
+
+  // Recibe el array de ids ya reordenado (la usa el drag & drop)
+  function reordenarFavoritos(nuevosIds) {
+    setFavoritos(nuevosIds);
+  }
+
   return (
     <FavoritesContext.Provider
-      value={{ favoritos, cargandoFavoritos, toggleFavorito, esFavorito }}
+      value={{
+        favoritos,
+        cargandoFavoritos,
+        toggleFavorito,
+        esFavorito,
+        eliminarFavorito,
+        reordenarFavoritos
+      }}
     >
       {children}
     </FavoritesContext.Provider>
