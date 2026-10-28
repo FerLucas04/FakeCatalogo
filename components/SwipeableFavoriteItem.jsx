@@ -6,6 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 export default function SwipeableFavoriteItem({ id, onDelete, children }) {
   const swipeableRef = useRef(null);
 
+  //Mensaje de alerta al borrar
   function confirmarEliminar() {
     Alert.alert(
       'Eliminar favorito',
