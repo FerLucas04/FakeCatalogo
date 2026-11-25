@@ -1,6 +1,7 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import {
   ActivityIndicator,
+  Alert,
   Image,
   Pressable,
   ScrollView,
@@ -10,13 +11,28 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import useFetch from '../../hooks/useFetch';
+import { useOrders } from '../../context/OrdersContext';
 
 export default function ProductDetail() {
   const { id } = useLocalSearchParams();
   const router = useRouter();
+  const { agregarCompra } = useOrders();
   const { data: producto, loading, error } = useFetch(
     `https://fakestoreapi.com/products/${id}`
   );
+
+  function confirmarCompra() {
+    Alert.alert('Confirmar compra', '¿Deseas comprar este producto?', [
+      { text: 'Cancelar', style: 'cancel' },
+      {
+        text: 'Comprar',
+        onPress: () => {
+          agregarCompra(producto);
+          Alert.alert('Compra realizada', 'Tu pedido ya aparece en Mis Compras');
+        }
+      }
+    ]);
+  }
 
   const BotonVolver = () => (
     <Pressable style={styles.volverBoton} onPress={() => router.back()}>
@@ -55,6 +71,11 @@ export default function ProductDetail() {
       <Text style={styles.price}>US$ {Number(producto.price).toFixed(2)}</Text>
       <Text style={styles.category}>{producto.category}</Text>
       <Text style={styles.description}>{producto.description}</Text>
+
+      <Pressable style={styles.comprarBoton} onPress={confirmarCompra}>
+        <Ionicons name="bag-check-outline" size={20} color="#fff" />
+        <Text style={styles.comprarTexto}>Comprar ahora</Text>
+      </Pressable>
     </ScrollView>
   );
 }
@@ -77,5 +98,16 @@ const styles = StyleSheet.create({
   name: { fontSize: 24, fontWeight: '700', color: '#0B1F3A' },
   price: { fontSize: 24, fontWeight: '700', color: '#1357C5' },
   category: { fontSize: 17, color: '#506079', textTransform: 'capitalize' },
-  description: { fontSize: 16, lineHeight: 24, color: '#0B1F3A' }
+  description: { fontSize: 16, lineHeight: 24, color: '#0B1F3A' },
+  comprarBoton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    backgroundColor: '#1357C5',
+    paddingVertical: 14,
+    borderRadius: 24,
+    marginTop: 8
+  },
+  comprarTexto: { color: '#fff', fontWeight: '700', fontSize: 16 }
 });

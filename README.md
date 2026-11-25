@@ -1,21 +1,25 @@
-###Estructura del Proyecto
+### Estructura del Proyecto
 
+```
 app/
   (tabs)/
-    _layout.jsx     ----→ Tabs (barra inferior de navegación)
-    index.jsx       ----→ tu catálogo actual (antes en App.js)
-    favoritos.jsx   ----→ pantalla de productos favoritos
-    perfil.jsx      ----→ pantalla de pefil de usuario
+    _layout.jsx      ----→ Tabs (barra inferior de navegación)
+    index.jsx        ----→ Catálogo principal con consumo de API
+    favoritos.jsx    ----→ Pantalla de favoritos con gestos y reordenamiento
+    compras.jsx      ----→ Historial de compras realizadas
+    perfil.jsx       ----→ Pantalla de perfil de usuario y cámara
   producto/
-    [id].jsx    ----→ pantalla de detalle del producto clickeado
-  _layout.jsx    ----→ Stack raíz
+    [id].jsx         ----→ Pantalla de detalle del producto seleccionado
+  _layout.jsx        ----→ Stack raíz y proveedores de contexto
 components/
-  ProductCard.jsx    ----→ se separa del archivo principal
-  SwipleableFavoriteItem.jsx ----→ Barra lateral de cada producto de favorito, permite swipear y eliminar
+  ProductCard.jsx            ----→ Tarjeta individual de producto
+  SwipeableFavoriteItem.jsx  ----→ Fila deslizable de favoritos para eliminar
 context/
-  FavoritesContext.js ----→ Provee las funciones de contexto para la pantalla de favoritos
-  UserContext.js ----→ Provee la funciones de contexto para la pantalla de perfil
+  FavoritesContext.js  ----→ Estado global y persistencia de favoritos
+  OrdersContext.js     ----→ Estado global y persistencia de compras
+  UserContext.js       ----→ Estado global y persistencia del perfil
 hooks/
-  useFetch  ----→ Hook personalizado para hacer el fetch a la URL de los productos
+  useFetch.js          ----→ Hook personalizado para peticiones HTTP
 utils/
-  storage.js ----→ Provee funciones de Cargar favoritos y Guardar favoritos
+  storage.js           ----→ Funciones de lectura y escritura en AsyncStorage
+```
